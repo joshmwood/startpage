@@ -1,6 +1,6 @@
   function getWeather(div, cityID ) {
     var key = '{yourkey}';
-    fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + "")  
+    fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + config.WEATHER_KEY)  
     .then((resp)=> {
         return resp.json() })
     .then((data)=> {
@@ -48,3 +48,19 @@ console.log(searchfield);
         window.open("https://www.google.com/search?q=" + val, "_self");
     }
 });
+
+function startTime(){
+
+    let date = new Date()
+    console.log(date);
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+
+    let timeDiv = document.createElement("div");
+    timeDiv.innerText = `${hour}:${minute}:${second}`;
+    let time = document.getElementById("time");
+    time.appendChild(timeDiv);
+}
+
+startTime();
