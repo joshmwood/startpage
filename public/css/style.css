@@ -101,3 +101,7 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.time-div{
+    font-size: 40px;
+}

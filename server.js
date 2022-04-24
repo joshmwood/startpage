@@ -10,8 +10,6 @@ app.set("view engine","ejs");
 app.set('views', path.join(__dirname, '/views'))
 
 app.get('/', (req, res)=>{
-    console.log(process.env.WEATHER_KEY);
-
     axios.get(`https://api.openweathermap.org/data/2.5/weather?id=6167865&appid=${process.env.WEATHER_KEY}`)
       .then((response)=>{
 
