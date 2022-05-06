@@ -1,6 +1,5 @@
 let searchfield = document.getElementById("googleSearchField");
-console.log(searchfield);
-  searchfield.addEventListener("keydown", event => {
+searchfield.addEventListener("keydown", event => {
     if (event.keyCode == 13) {
         let val = document.getElementById("googleSearchField").value;
 
@@ -11,7 +10,6 @@ console.log(searchfield);
 function startTime(){
 
     let date = new Date()
-    console.log(date);
     let hour = date.getHours();
     let period = "";
     if (hour >= 12){
@@ -33,3 +31,28 @@ function startTime(){
 }
 
 startTime();
+
+async function getWeather(){
+    const torontoID = 6167865;
+    const apiurl = `/weather`;
+    const response = await fetch(apiurl);
+    console.log(response);
+    const json = await response.json();
+    console.log(json);
+    return json;
+}
+getWeather();
+
+async function renderWeather(){
+
+    const weather = await getWeather();
+
+    const temp = Math.floor(weather.main.temp - 273);
+    const desc = weather.weather[0].main;
+    console.log(temp)
+    console.log(desc);
+
+
+    let div = document.getElementById("tempPlaceholder");
+    div.innerText = `${temp}° C`
+}
