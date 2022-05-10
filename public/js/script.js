@@ -34,14 +34,41 @@ startTime();
 
 async function getWeather(){
     const torontoID = 6167865;
-    const apiurl = `/weather`;
+    // get longitude and latitude
+
+    const coords = getLatLon();
+
+    const lat = coords[0];
+    const lon = coords[1];
+    const apiurl = `/weather/${lat},${lon}`;
     const response = await fetch(apiurl);
     console.log(response);
     const json = await response.json();
     console.log(json);
     return json;
 }
-getWeather();
+
+function getLatLon(){
+    if ('geolocation' in navigator){
+        const coords = [];
+        navigator.geolocation.getCurrentPosition(pos=>{
+            
+            lat = pos.coords.latitude;
+            lon = pos.coords.longitude;
+            console.log(`lat: ${lat}`);
+            console.log(`lon: ${lon}`)
+            coords.push(lat);
+            coords.push(lon);
+        })
+        return coords;
+    }
+    else{
+        // return "default" coords
+        console.log("No Geolocation found, using default coordinates");
+        const coords = [43.7,79.41];
+        return coords;
+    }
+}
 
 async function renderWeather(){
 
@@ -56,3 +83,5 @@ async function renderWeather(){
     let div = document.getElementById("tempPlaceholder");
     div.innerText = `${temp}° C`
 }
+
+renderWeather();
